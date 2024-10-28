@@ -1,40 +1,64 @@
-# todo 启动浏览器需要的数据结构，包括：ads_id，启动url，需要调用的类，平台名称
-handler_info_list ={
-    'knbvol0': {
-        'Rollbit': {
-            'class': 'RollbitHandler类',
-            'platform_name': 'Rollbit',
-            'start_url': 'https://rollbit.com/sports?bt-path=%2Fsoccer-1'
-        },
-        'Stake': {
-            'class': 'StakeHandler类',
-            'platform_name': 'Stake',
-            'start_url': 'https://stake.com/zh/sports/live/soccer'
-        }
+# todo 基础数据准备
+# ws接收到的数据
+ws_message={
+  "message": {
+    "bet_id": 1001,
+    "home_max_odds": {
+      "odds": 2.9,
+      "Platform": "Rollbit",
+      "game_name": "Game A",
+      "standard_name": "Standard Game A"
     },
-    'ko5eksd': {
-        'Rollbit': {
-            'class': 'RollbitHandler类',
-            'platform_name': 'Rollbit',
-            'start_url': 'https://rollbit.com/sports?bt-path=%2Fsoccer-1'
-        },
-        'Stake': {
-            'class': 'StakeHandler类',
+    "draw_max_odds": {
+      "odds": 3.15,
+      "Platform": "Stake",
+      "game_name": "Game A",
+      "standard_name": "Standard Game A"
+    },
+    "away_max_odds": {
+      "odds": 3.2,
+      "Platform": "Rollbit",
+      "game_name": "Game A",
+      "standard_name": "Standard Game A"
+    },
+    "total_odds": 0.974787903667214
+  }
+}
+# ads浏览器启动和网址等信息
+hander_info_list = [
+        {
+            'process': 'Stake进程对象1',
             'platform_name': 'Stake',
-            'start_url': 'https://stake.com/zh/sports/live/soccer'
-        }
-    }
-}
+            'queue': 'Queue对象1',  # 处理器实例1的消息队列
+            'handler_id': 0,
+        },
+        {
+            'process': 'Process进程对象2',
+            'platform_name': 'Rollbit',
+            'queue': 'Queue对象2',  # 处理器实例2的消息队列
+            'handler_id': 1,
+        },
+        {
+            'process': 'Process进程对象3',
+            'platform_name': 'Rollbit',
+            'queue': 'Queue对象3',  # 处理器实例3的消息队列
+            'handler_id': 2,
+        }]
 
-# todo 在initialize_processes() 中，构造了一个新的数据结构
 
-    # todo info字典
-info = {
-        'debug_port': 22222,
-        'platform_name': 'Stake',
-        'start_url': '启动url',
+# todo 构建出来的数据结构
+# 这个是要发送给调度器的数据
+handler_info_list = [
+    {
+        'platform_name': 'Rollbit',
         'handler_id': 0,
-}
-    # todo 构建实例 handler，传入了info，属于handler自己的queue，以及一个公用的feedback_queue
-#  handler = handler_class(info=info, message_queue=handler_queue, feedback_queue=self.feedback_queue)
+        'queue': handler_queue_0,
+    },
+    {
+        'platform_name': 'Stake',
+        'handler_id': 1,
+        'queue': handler_queue_1,
+    },...
+    # 可能还有其他处理器实例
+]
 

@@ -6,6 +6,7 @@ import json
 
 class Receiver(WebSocketThread):
     def __init__(self,message_queue, url=WS['url_betting'],log_file_name=None):
+        self.num = 0
         # 动态生成日志文件名，例如 "Receiver.log"
         self.log_file_name = log_file_name or f'./Log/{self.__class__.__name__}.log'
         self.logger = get_logger(name=__name__, log_file=self.log_file_name)
@@ -39,8 +40,10 @@ class Receiver(WebSocketThread):
                 # 如果 message 既不是字符串也不是字典，打印日志并返回 None
                 print('WebSocket message 格式不正确，未识别的数据类型:', type(data_str))
                 return None
-
+            data_dict['bet_id'] = self.num
+            self.num += 1
             # 返回 JSON 格式字符串
+
             return json.dumps(data_dict)
         except json.JSONDecodeError as e:
             print('WebSocket 解析错误:', e)

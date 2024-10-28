@@ -1,4 +1,4 @@
-platform_configs = Sample_of_data = {
+platform_configs ={
     'knbvol0': {
         'Rollbit': {
             'class': 'platform_handlers.rollbit_handler.RollbitHandler',
