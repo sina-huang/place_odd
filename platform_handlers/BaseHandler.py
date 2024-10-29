@@ -44,16 +44,18 @@ class BaseHandler(ABC):
             try:
                 # 从消息队列获取消息
                 message = self.message_queue.get(timeout=self.message_check_interval)
-                print(f"[{self.platform_name}-{self.handler_id}] 收到消息：{message}")
+
                 if message is None:
                     break
                 else:
-                    action = message.get('action')
-                    if action == 'instruction':
+                    message_type = message.get('type')
+                    if message_type == 'instruction':
                         # 处理来自调度器的指令
+                        print(f"[{self.platform_name}-{self.handler_id}] 收到下单指令：{message}")
                         self.receive_instruction(message)
                     else:
                         # 处理ws信息
+                        print(f"[{self.platform_name}-{self.handler_id}] 收到ws信息：{message}")
                         self.handle_bet_message(message)
             except queue.Empty:
                 pass  # 队列为空，继续循环

@@ -150,7 +150,7 @@ class Dispatcher:
                 instruction = {
                     'bet_id': bet_id,
                     'action': action,
-                    'instruction': 'instruction'  # 用于区分消息类型
+                    'type': 'instruction'  # 用于区分消息类型
                 }
                 # 这里handler_info_list 是将管道发送过来了的。
                 handler_info['queue'].put(instruction)

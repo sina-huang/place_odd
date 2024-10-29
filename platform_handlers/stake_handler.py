@@ -15,13 +15,14 @@ class StakeHandler(BaseHandler):
         :param bet_info: 包含投注信息的字典。
         :return: 如果当前赔率与预期赔率一致，返回 True；否则返回 False。
         """
-        return True
+        return False
 
     def place_bet(self, bet_info):
         """
         实现 Rollbit 平台的下单逻辑。
         :param bet_info: 包含投注信息的字典。
         """
+        print(f'[{self.platform_name}--{self.handler_id}] 下单成功')
         pass
 
     def cancel_bet(self, bet_id):
@@ -29,6 +30,7 @@ class StakeHandler(BaseHandler):
         实现 Rollbit 平台的取消下单逻辑。
         :param bet_id: 要取消的投注的唯一标识符。
         """
+        print(f'[{self.platform_name}--{self.handler_id}] 取消订单')
         pass
 
     def prepare_page(self,page):

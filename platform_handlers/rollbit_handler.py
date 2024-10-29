@@ -20,6 +20,7 @@ class RollbitHandler(BaseHandler):
         实现 Rollbit 平台的下单逻辑。
         :param bet_info: 包含投注信息的字典。
         """
+        print(f'[{self.platform_name}--{self.handler_id}] 下单成功')
         pass
 
     def cancel_bet(self, bet_id):
@@ -27,6 +28,7 @@ class RollbitHandler(BaseHandler):
         实现 Rollbit 平台的取消下单逻辑。
         :param bet_id: 要取消的投注的唯一标识符。
         """
+        print(f'[{self.platform_name}--{self.handler_id}] 取消订单')
         pass
 
     def prepare_page(self,page):
