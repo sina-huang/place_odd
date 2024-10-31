@@ -3,7 +3,10 @@ data = {
         "odds": 2.9,
         "Platform": "Rollbit",
         "game_name": "Kaya FC–Iloilo -- Eastern SC",
-        "standard_name": "Kaya FC–Iloilo -- Eastern SC"
+        "standard_name": "Kaya FC–Iloilo -- Eastern SC",
+        "betting_team_name": "Kaya FC–Iloilo",
+        "bet_id":1001
+
     },
     "draw_max_odds": {
         "odds": 3.15,

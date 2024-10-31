@@ -7,8 +7,7 @@ from settings import ADS_ID, ADS, WS, Platform, REDIS
 # 导入平台处理器类
 from platform_handlers.rollbit_handler import RollbitHandler
 from platform_handlers.stake_handler import StakeHandler
-# from platform_handlers.sportbet_handler import SportbetHandler
-# 如果有其他平台处理器类，请继续添加
+
 
 # 创建平台名称与处理器类的映射
 PLATFORM_HANDLERS = {
@@ -17,9 +16,6 @@ PLATFORM_HANDLERS = {
     # 'Sportbet': SportbetHandler,
     # 添加其他平台处理器类
 }
-
-
-
 
 
 def get_platform_configs():
@@ -47,6 +43,10 @@ def get_platform_configs():
             else:
                 raise ValueError(f"未找到平台处理器：{platform_name}")
     return platform_configs
+
+
+
+
 
 
 # 在其他模块中，您可以通过调用 get_platform_configs() 来获取配置字典

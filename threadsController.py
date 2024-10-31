@@ -6,9 +6,17 @@ from config import get_platform_configs
 from dispatch.dispatcher import Dispatcher
 from ws.WS_Receiver import Receiver
 
+
 def dispatcher_process_run(handler_info_list, receiver_queue, feedback_queue):
     dispatcher = Dispatcher(handler_info_list, receiver_queue, feedback_queue)
     dispatcher.run()
+
+
+def start_handler_process(handler_class, info, message_queue, feedback_queue):
+    # 在子进程中创建处理器实例
+    handler = handler_class(info=info, message_queue=message_queue, feedback_queue=feedback_queue)
+    # 调用处理器的运行方法
+    handler.run()
 
 class ProcessingController:
     def __init__(self):
@@ -29,34 +37,6 @@ class ProcessingController:
 
     def start_browser_processes(self):
         handler_id_counter = 0
-        '''
-                        self.platform_configs ={
-                                'knbvol0': {
-                                    'Rollbit': {
-                                        'class': 'platform_handlers.rollbit_handler.RollbitHandler',
-                                        'platform_name': 'Rollbit',
-                                        'start_url': 'https://rollbit.com/sports?bt-path=%2Fsoccer-1'
-                                    },
-                                    'Stake': {
-                                        'class': 'platform_handlers.stake_handler.StakeHandler',
-                                        'platform_name': 'Stake',
-                                        'start_url': 'https://stake.com/zh/sports/live/soccer'
-                                    }
-                                },
-                                'ko5eksd': {
-                                    'Rollbit': {
-                                        'class': 'platform_handlers.rollbit_handler.RollbitHandler',
-                                        'platform_name': 'Rollbit',
-                                        'start_url': 'https://rollbit.com/sports?bt-path=%2Fsoccer-1'
-                                    },
-                                    'Stake': {
-                                        'class': 'platform_handlers.stake_handler.StakeHandler',
-                                        'platform_name': 'Stake',
-                                        'start_url': 'https://stake.com/zh/sports/live/soccer'
-                                    }
-                                }
-                            }
-                        '''
         for debug_port, platforms in self.platform_configs.items():
             for platform_name, handler_info in platforms.items():
                 # 合并配置信息
@@ -68,16 +48,14 @@ class ProcessingController:
                     # 可以添加更多配置项
                 }
                 handler_id_counter += 1
-                handler_class = handler_info['class']   # todo 拿到类对象
+                handler_class = handler_info['class']  # 拿到类对象
                 # 创建消息队列
                 handler_queue = self.manager.Queue()
-                # 创建处理器实例(初始化类对象)，并传递反馈队列
-                # todo 注意，这里传入了基本信息，传入了一个浏览器类 --独享的-- 消息队列，传入了另外一个所有浏览器 --共享的-- 反馈队列
-                # todo 同时需要想清楚，初始化类对象时，并没有开启进程，只是创建了一个实例对象。
-                # todo 真正开启进程是在run方法中，在构造进程时，会根据实例对象中的数据，创建一个进程，这些数据会深度拷贝到新进程中
-                handler = handler_class(info=info, message_queue=handler_queue, feedback_queue=self.feedback_queue)
+                # 不在主进程中创建处理器实例
+                # handler = handler_class(info=info, message_queue=handler_queue, feedback_queue=self.feedback_queue)
                 # 启动处理器进程
-                p = Process(target=handler.run)
+                p = Process(target=start_handler_process,
+                            args=(handler_class, info, handler_queue, self.feedback_queue))
                 p.daemon = True
                 p.start()
                 # 保存处理器信息

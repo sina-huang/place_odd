@@ -15,11 +15,11 @@ WS ={
 Platform ={
     'Stake': {
         'platform_name' : 'Stake',
-        'start_url' : 'https://stake.com/zh/sports/live/soccer',
+        'start_url' : 'https://stake.com/sports/live/soccer',
     },
     'Rollbit': {
         'platform_name' : 'Rollbit',
-        'start_url' : 'https://rollbit.com/sports?bt-path=%2Fsoccer-1',
+        'start_url' : 'https://rollbit.com/sports?bt-path=%2Flive',
     },
     # 'Sportbet': {
     #     'platform_name' : 'Sportbet',

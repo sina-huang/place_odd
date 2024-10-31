@@ -9,6 +9,7 @@ class Receiver(WebSocketThread):
         self.num = 0
         # 动态生成日志文件名，例如 "Receiver.log"
         self.log_file_name = log_file_name or f'./Log/{self.__class__.__name__}.log'
+
         self.logger = get_logger(name=__name__, log_file=self.log_file_name)
 
         self.message_queue = message_queue
