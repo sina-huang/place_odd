@@ -23,7 +23,7 @@ Platform ={
     },
     # 'Sportbet': {
     #     'platform_name' : 'Sportbet',
-    #     'start_url' : 'https://sportsbet.io/zh/sports/soccer/inplay',
+    #     'start_url' : 'https://sportsbet.io/sports/soccer/inplay',
     # }
 }
 

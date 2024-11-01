@@ -28,7 +28,6 @@ class RollbitHandler(BaseHandler):
         # todo 这里需要判断是不是买平局
         if bet_info['betting_team_name'].lower() == 'draw':
             brother_name = bet_info['game_name'].split('--')[0].strip().lower()
-            print("这里是brother_name",brother_name)
             button = self.page_pom_obj.find_button_1_brother(sr=self.sr, bet_info=bet_info,brother_name=brother_name)
         else:
             button = self.page_pom_obj.find_button_1(self.sr,bet_info)
